@@ -300,9 +300,6 @@ export default function AdminDashboard() {
                                         required
                                         placeholder="https://www.youtube.com/watch?v=..."
                                     />
-                                    <small style={{ color: '#999', marginTop: '0.5rem', display: 'block' }}>
-                                        🎬 Video will be embedded with custom pirate theme
-                                    </small>
                                 </div>
                             )}
 
