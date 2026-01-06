@@ -54,6 +54,7 @@ CREATE TABLE resources (
   author TEXT NOT NULL,
   category TEXT NOT NULL CHECK (category IN ('books', 'video', 'audio')),
   pdf_url TEXT NOT NULL,
+  file_path TEXT,  -- Required for reliable file deletion from storage
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -66,18 +67,20 @@ ON resources FOR SELECT
 TO public
 USING (true);
 
--- Policy: Only authenticated users can insert
-CREATE POLICY "Authenticated insert access"
+-- Policy: Public can insert (we use simple password auth, not Supabase Auth)
+CREATE POLICY "Public insert access"
 ON resources FOR INSERT
-TO authenticated
+TO public
 WITH CHECK (true);
 
--- Policy: Only authenticated users can delete
-CREATE POLICY "Authenticated delete access"
+-- Policy: Public can delete (we use simple password auth, not Supabase Auth)
+CREATE POLICY "Public delete access"
 ON resources FOR DELETE
-TO authenticated
+TO public
 USING (true);
 ```
+
+**⚠️ Important Note:** Since we're using simple password authentication (not Supabase Auth), the policies are set to `public` instead of `authenticated`. The admin password protects access in the app layer.
 
 #### C. Create the Storage Bucket
 
@@ -102,23 +105,25 @@ TO public
 USING (bucket_id = 'archives');
 ```
 
-**Policy 2: Authenticated Upload Access**
+**Policy 2: Public Upload Access**
 ```sql
--- Only authenticated users can upload
-CREATE POLICY "Authenticated upload access"
+-- Public can upload (we use simple password auth, not Supabase Auth)
+CREATE POLICY "Public upload access"
 ON storage.objects FOR INSERT
-TO authenticated
+TO public
 WITH CHECK (bucket_id = 'archives');
 ```
 
-**Policy 3: Authenticated Delete Access**
+**Policy 3: Public Delete Access**
 ```sql
--- Only authenticated users can delete
-CREATE POLICY "Authenticated delete access"
+-- Public can delete (we use simple password auth, not Supabase Auth)
+CREATE POLICY "Public delete access"
 ON storage.objects FOR DELETE
-TO authenticated
+TO public
 USING (bucket_id = 'archives');
 ```
+
+**⚠️ Important Note:** Storage policies are set to `public` to match our simple password authentication. The admin dashboard is protected by password, so only admins can access the upload/delete functionality.
 
 #### E. Get Your API Keys
 
@@ -290,26 +295,67 @@ For production with multiple admins:
 
 ### "Missing Supabase environment variables"
 
-- Make sure `.env.local` exists
-- Check that variable names match exactly
+- Make sure `.env.local` exists locally
+- For Vercel: Add all environment variables in Project Settings → Environment Variables
+- Check that variable names match exactly: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `ADMIN_PASSWORD`
 - Restart the dev server after adding variables
+
+### "Could not find the 'file_path' column"
+
+This means the `file_path` column is missing from your database. Run this SQL in Supabase:
+
+```sql
+ALTER TABLE resources
+ADD COLUMN IF NOT EXISTS file_path TEXT;
+```
+
+### "New row violates row-level security policy"
+
+Your database or storage policies are still set to `authenticated` instead of `public`. Fix it:
+
+**For Database:**
+1. Go to Supabase → Authentication → Policies
+2. Find your `resources` table policies
+3. Change `TO authenticated` to `TO public` for INSERT and DELETE policies
+
+**For Storage:**
+1. Go to Supabase → Storage → `archives` bucket → Policies
+2. Change `TO authenticated` to `TO public` for INSERT and DELETE policies
 
 ### "Failed to upload file"
 
 - Check that the `archives` bucket exists in Supabase
-- Verify storage policies are set correctly
+- Verify storage policies are set to `public` (not `authenticated`)
 - Check browser console for detailed errors
+- Verify your Supabase anon key is correct
+
+### "useSearchParams() should be wrapped in a suspense boundary"
+
+This error occurs during Vercel build. The library page already has a Suspense boundary, so if you see this:
+- Make sure you're deploying the latest code from GitHub
+- Clear Vercel build cache: Go to deployment → Redeploy → uncheck "Use existing Build Cache"
 
 ### "Incorrect Captain's Code"
 
 - Verify `ADMIN_PASSWORD` in `.env.local` matches what you're entering
+- For Vercel: Check the environment variable is set correctly in Project Settings
 - Check for extra spaces or hidden characters
+- Password is case-sensitive
 
 ### Files not showing in Library
 
-- Check that the resource was saved to the database
+- Check that the resource was saved to the database (go to Supabase → Table Editor → resources)
 - Verify `pdf_url` field contains the correct URL
 - Check browser console for fetch errors
+- Verify the Supabase URL and anon key are correct
+
+### Vercel deployment stuck on old commit
+
+If Vercel keeps deploying an old version:
+1. Go to Project Settings → Git in Vercel
+2. Verify "Production Branch" is set to `main`
+3. Try redeploying without build cache
+4. As a last resort: Delete the Vercel project and reimport from GitHub
 
 ---
 
