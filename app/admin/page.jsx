@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaPlus, FaTrash, FaBook, FaVideo, FaMusic, FaSignOutAlt, FaAnchor } from 'react-icons/fa';
 import { getAllResources, uploadFileToStorage, createResource, deleteResource } from '@/lib/supabase';
-import { generateThumbnailFile } from '@/lib/pdfThumbnail';
 import styles from './Admin.module.css';
+
+// Prevent static generation for this page
+export const dynamic = 'force-dynamic';
 
 export default function AdminDashboard() {
     const [resources, setResources] = useState([]);
@@ -92,8 +94,9 @@ export default function AdminDashboard() {
                 );
                 console.log('✅ PDF uploaded:', pdfUrl);
 
-                // Step 2: Generate thumbnail from PDF first page
+                // Step 2: Generate thumbnail from PDF first page (dynamic import)
                 console.log('🖼️ Generating thumbnail from PDF...');
+                const { generateThumbnailFile } = await import('@/lib/pdfThumbnail');
                 const thumbnailFile = await generateThumbnailFile(formData.file);
                 console.log('✅ Thumbnail generated');
 
