@@ -1,0 +1,217 @@
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--cl-gray);
+}
+
+.librarySection {
+    padding: 3rem 1rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 3rem;
+    color: var(--cl-dark);
+    margin-bottom: 0.5rem;
+}
+
+.highlight {
+    color: var(--cl-red);
+}
+
+.searchInfo {
+    color: var(--cl-text-muted);
+    font-size: 1rem;
+}
+
+/* Filter Tabs */
+.filterTabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.tab {
+    background: transparent;
+    border: 1px solid var(--cl-divider);
+    color: var(--cl-text-muted);
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab:hover {
+    border-color: var(--cl-red);
+    color: var(--cl-dark);
+}
+
+.tab.active {
+    background: var(--cl-red);
+    color: white;
+    border-color: var(--cl-red);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card */
+.card {
+    background: var(--cl-white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.cardIcon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.cardContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.category {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+}
+
+.cardTitle {
+    font-size: 1.3rem;
+    color: var(--cl-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.author {
+    color: var(--cl-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.cardActions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.actionBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: var(--cl-dark);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.actionBtn:hover {
+    background: var(--cl-red);
+    transform: translateY(-1px);
+}
+
+.downloadBtn {
+    background: var(--cl-blue);
+}
+
+.downloadBtn:hover {
+    background: var(--cl-red);
+}
+
+/* States */
+.loadingContainer,
+.errorContainer,
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--cl-text-muted);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--cl-gray);
+    border-top: 4px solid var(--cl-red);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.errorContainer {
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid var(--cl-red);
+    border-radius: 8px;
+    padding: 2rem;
+    color: var(--cl-red);
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filterTabs {
+        gap: 0.5rem;
+    }
+
+    .tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}

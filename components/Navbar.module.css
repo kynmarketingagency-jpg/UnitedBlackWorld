@@ -1,0 +1,139 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: #FFF;
+    border-bottom: 1px solid #E5E5E5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logoBox {
+    width: 40px;
+    height: 40px;
+    background-color: var(--cl-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.logoBox:hover {
+    transform: scale(1.05);
+}
+
+.brandName {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.brandTitle {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cl-dark);
+    text-transform: uppercase;
+}
+
+.brandSubtitle {
+    font-size: 0.65rem;
+    color: var(--cl-text-muted);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.links {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+    color: var(--cl-text-muted);
+    font-weight: 500;
+}
+
+.links a:hover {
+    color: var(--cl-dark);
+}
+
+.searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 10px;
+    color: #CCC;
+    font-size: 0.9rem;
+}
+
+.searchInput {
+    padding: 0.5rem 1rem 0.5rem 2.2rem;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    width: 250px;
+    transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+    border-color: var(--cl-blue);
+}
+
+.profileIcon {
+    width: 36px;
+    height: 36px;
+    background-color: var(--cl-dark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cl-yellow);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.profileIcon:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .searchInput {
+        width: 100%;
+    }
+}

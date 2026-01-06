@@ -1,0 +1,73 @@
+.hero {
+    background-color: var(--cl-dark);
+    height: 400px;
+    color: white;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 4rem;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+    letter-spacing: -1px;
+}
+
+.highlight {
+    color: var(--cl-yellow);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #CCC;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: -100px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.compassContainer {
+    opacity: 0.1;
+    font-size: 400px;
+    color: var(--cl-yellow);
+}
+
+.bgCompass {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 300px;
+        padding: 0 2rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .compassContainer {
+        font-size: 250px;
+    }
+}

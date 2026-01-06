@@ -1,0 +1,113 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: var(--cl-white);
+}
+
+.card {
+    background: var(--cl-card-bg);
+    border: 1px solid var(--cl-divider);
+    padding: 3rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+    font-size: 3rem;
+    color: var(--cl-red);
+    margin-bottom: 1rem;
+}
+
+.card h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--cl-white);
+}
+
+.card p {
+    color: var(--cl-gray);
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.inputGroup {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 1rem;
+    color: var(--cl-gray);
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 2.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--cl-divider);
+    border-radius: 4px;
+    color: var(--cl-white);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+    color-scheme: dark;
+    /* Prevents white background on password fields */
+}
+
+.inputGroup input:focus {
+    border-color: var(--cl-blue);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.error {
+    color: var(--cl-red);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.loginBtn {
+    background: var(--cl-red);
+    color: var(--cl-white);
+    border: none;
+    padding: 1rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 1rem;
+    transition: all 0.2s;
+}
+
+.loginBtn:hover {
+    background: var(--cl-white);
+    color: var(--cl-black);
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cl-gray);
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.backLink:hover {
+    color: var(--cl-white);
+}

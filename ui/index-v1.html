@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>United Black World - The Journal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #0a0a0a;
+            font-family: 'Cormorant Garamond', serif;
+            color: #fff;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px 50px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: #D4AF37;
+            letter-spacing: 4px;
+        }
+
+        .logo-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #8B7355;
+            letter-spacing: 6px;
+            margin-top: 5px;
+        }
+
+        /* Skull icon in header */
+        .admin-skull {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .admin-skull:hover {
+            transform: scale(1.1);
+        }
+
+        .admin-skull svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 20px 50px 60px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: #D4AF37;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        /* Content grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .content-card {
+            background-color: #141414;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            opacity: 0.4;
+        }
+
+        .card-body {
+            padding: 18px;
+        }
+
+        .card-category {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            color: #C41E3A;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card-excerpt {
+            font-size: 14px;
+            color: #888;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #222;
+        }
+
+        .card-date {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .card-type {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            color: #8B7355;
+            letter-spacing: 2px;
+            padding: 3px 8px;
+            background-color: rgba(139, 115, 85, 0.15);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer p {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: #444;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <h1 class="logo-main">United Black World</h1>
+            <span class="logo-sub">The Journal</span>
+        </div>
+
+        <!-- Skull Admin Link -->
+        <a href="admin-login-v1.html" class="admin-skull" title="Captain's Quarters">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="miniSkullGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#DC143C" />
+                        <stop offset="50%" stop-color="#C41E3A" />
+                        <stop offset="100%" stop-color="#8B0000" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Main skull dome -->
+                <ellipse cx="50" cy="40" rx="40" ry="35" fill="url(#miniSkullGrad)" />
+
+                <!-- Skull face/jaw area -->
+                <path
+                    d="M20 45 Q15 60, 20 75 L25 90 Q30 95, 35 95 L35 85 L40 85 L40 95 L45 95 L45 85 L50 85 L50 95 L55 95 L55 85 L60 85 L60 95 L65 95 Q70 95, 75 90 L80 75 Q85 60, 80 45"
+                    fill="url(#miniSkullGrad)" />
+
+                <!-- Left eye socket -->
+                <ellipse cx="35" cy="42" rx="12" ry="14" fill="#000" />
+
+                <!-- Right eye socket -->
+                <ellipse cx="65" cy="42" rx="12" ry="14" fill="#000" />
+
+                <!-- Nose hole -->
+                <path d="M50 55 L43 70 Q50 72, 57 70 Z" fill="#000" />
+
+                <!-- Teeth dividers -->
+                <line x1="40" y1="85" x2="40" y2="95" stroke="#000" stroke-width="1" />
+                <line x1="45" y1="85" x2="45" y2="95" stroke="#000" stroke-width="1" />
+                <line x1="50" y1="85" x2="50" y2="95" stroke="#000" stroke-width="1" />
+                <line x1="55" y1="85" x2="55" y2="95" stroke="#000" stroke-width="1" />
+                <line x1="60" y1="85" x2="60" y2="95" stroke="#000" stroke-width="1" />
+
+                <!-- Teeth top line -->
+                <line x1="35" y1="85" x2="65" y2="85" stroke="#000" stroke-width="1" />
+            </svg>
+        </a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h2 class="section-title">Recent Additions</h2>
+
+        <div class="content-grid">
+            <!-- Card 1 -->
+            <article class="content-card">
+                <div class="card-image">
+                    <span class="card-icon">📖</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">LIBRARY</span>
+                    <h3 class="card-title">The Souls of Black Folk</h3>
+                    <p class="card-excerpt">A seminal work exploring the African-American experience at the turn of the
+                        century.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Jan 5, 2026</span>
+                        <span class="card-type">BOOK</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="content-card">
+                <div class="card-image">
+                    <span class="card-icon">🎵</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">SOUNDS</span>
+                    <h3 class="card-title">Liberation Frequencies</h3>
+                    <p class="card-excerpt">Curated sounds from the diaspora, from traditional rhythms to modern beats.
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-date">Jan 4, 2026</span>
+                        <span class="card-type">AUDIO</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="content-card">
+                <div class="card-image">
+                    <span class="card-icon">🎬</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">VISIONS</span>
+                    <h3 class="card-title">Echoes of Ancestry</h3>
+                    <p class="card-excerpt">Documentary exploring connections between African traditions and the
+                        diaspora.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Jan 3, 2026</span>
+                        <span class="card-type">VIDEO</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="content-card">
+                <div class="card-image">
+                    <span class="card-icon">✍️</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-category">JOURNAL</span>
+                    <h3 class="card-title">Reflections on Unity</h3>
+                    <p class="card-excerpt">Personal essay on building bridges across the African diaspora.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Jan 2, 2026</span>
+                        <span class="card-type">ENTRY</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 UNITED BLACK WORLD</p>
+    </footer>
+</body>
+
+</html>

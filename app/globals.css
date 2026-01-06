@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+  /* Captain's Log Palette */
+  --cl-dark: #1A1A1A;
+  /* Hero/Header Background */
+  --cl-red: #FF3B30;
+  /* Anchor / Primary Actions */
+  --cl-yellow: #FFCC00;
+  /* Highlight / Gold Accents */
+  --cl-blue: #007AFF;
+  /* Links / Secondary Actions */
+  --cl-gray: #F5F5F7;
+  /* Page Background */
+  --cl-white: #FFFFFF;
+  /* Card Background */
+  --cl-text-main: #1C1C1E;
+  --cl-text-muted: #8E8E93;
+  --cl-divider: #333;
+  --cl-card-bg: #2a2a2a;
+
+  --font-heading: 'Cinzel', serif;
+  /* One Piece pirate flair */
+  --font-body: 'Lato', sans-serif;
+
+  --spacing-unit: 8px;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--cl-text-main);
+  background-color: var(--cl-gray);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: calc(var(--spacing-unit) * 1); }
+.mt-2 { margin-top: calc(var(--spacing-unit) * 2); }
+.mt-3 { margin-top: calc(var(--spacing-unit) * 3); }
+.mt-4 { margin-top: calc(var(--spacing-unit) * 4); }
+
+.mb-1 { margin-bottom: calc(var(--spacing-unit) * 1); }
+.mb-2 { margin-bottom: calc(var(--spacing-unit) * 2); }
+.mb-3 { margin-bottom: calc(var(--spacing-unit) * 3); }
+.mb-4 { margin-bottom: calc(var(--spacing-unit) * 4); }

@@ -1,0 +1,54 @@
+:root {
+  /* Captain's Log Palette */
+  --cl-dark: #1A1A1A;
+  /* Hero/Header Background */
+  --cl-red: #FF3B30;
+  /* Anchor / Video Tag */
+  --cl-yellow: #FFCC00;
+  /* Highlight / Image Tag */
+  --cl-blue: #007AFF;
+  /* Document Tag */
+  --cl-gray: #F5F5F7;
+  /* Page Background */
+  --cl-white: #FFFFFF;
+  /* Card Background */
+  --cl-text-main: #1C1C1E;
+  --cl-text-muted: #8E8E93;
+
+  --font-heading: 'Cinzel', serif;
+  /* Keeps the One Piece flair */
+  --font-body: 'Lato', sans-serif;
+
+  --spacing-unit: 8px;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--cl-text-main);
+  background-color: var(--cl-gray);
+  font-family: var(--font-body);
+  /* Removed the parchment texture for the cleaner "Captain's Log" look */
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

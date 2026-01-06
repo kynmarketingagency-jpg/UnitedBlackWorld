@@ -1,0 +1,60 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  width: 100%;
+}
+
+.feedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--op-wood);
+  padding-bottom: 1rem;
+}
+
+.feedHeader h2 {
+  font-size: 2rem;
+  color: var(--op-ink);
+}
+
+.highlight {
+  color: var(--op-red);
+}
+
+.filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter button {
+  background: transparent;
+  border: 1px solid var(--op-wood);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--op-wood);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.filter button:hover,
+.activeFilter {
+  background: var(--op-red) !important;
+  color: var(--op-parchment) !important;
+  border-color: var(--op-red) !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}

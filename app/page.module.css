@@ -1,0 +1,99 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--cl-dark);
+}
+
+.highlight {
+  color: var(--cl-red);
+}
+
+.sectionDescription {
+  font-size: 1.1rem;
+  color: var(--cl-text-muted);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.ctaContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ctaButton {
+  background: var(--cl-red);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  transition: all 0.3s;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.ctaButton:hover {
+  background: var(--cl-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.aboutSection {
+  background: var(--cl-white);
+  padding: 4rem 1rem;
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.aboutCard {
+  background: var(--cl-gray);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s;
+}
+
+.aboutCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.aboutCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--cl-dark);
+}
+
+.aboutCard p {
+  color: var(--cl-text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+}
