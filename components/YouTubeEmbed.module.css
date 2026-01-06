@@ -1,0 +1,86 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: 12px;
+  border: 3px solid var(--cl-red);
+  box-shadow:
+    0 0 20px rgba(255, 59, 48, 0.3),
+    inset 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+.wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Pirate-themed decorative frame */
+.pirateFrame {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg,
+    var(--cl-red) 0%,
+    var(--cl-yellow) 25%,
+    var(--cl-red) 50%,
+    var(--cl-yellow) 75%,
+    var(--cl-red) 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.error {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(255, 59, 48, 0.1);
+  border: 2px solid var(--cl-red);
+  border-radius: 8px;
+  color: var(--cl-red);
+  font-weight: 600;
+}
+
+/* Hover effect - gold glow */
+.container:hover {
+  border-color: var(--cl-yellow);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 40px rgba(255, 215, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.container:hover .pirateFrame {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+}

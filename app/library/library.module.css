@@ -87,6 +87,20 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.thumbnail {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 3px solid var(--cl-yellow);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.videoCard {
+    width: 100%;
+}
+
 .cardIcon {
     font-size: 3rem;
     margin-bottom: 0.5rem;

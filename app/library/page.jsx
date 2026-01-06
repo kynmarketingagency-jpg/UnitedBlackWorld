@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { getAllResources } from '@/lib/supabase';
+import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { FaBook, FaVideo, FaMusic, FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from './library.module.css';
 
@@ -154,41 +155,71 @@ function LibraryContent() {
                                 <div className={styles.grid}>
                                     {filteredResources.map((resource) => (
                                         <div key={resource.id} className={styles.card}>
-                                            <div
-                                                className={styles.cardIcon}
-                                                style={{ color: getCategoryColor(resource.category) }}
-                                            >
-                                                {getCategoryIcon(resource.category)}
-                                            </div>
+                                            {/* Books: Show thumbnail and PDF actions */}
+                                            {resource.category === 'books' ? (
+                                                <>
+                                                    {/* Thumbnail */}
+                                                    {resource.thumbnail_url && (
+                                                        <img
+                                                            src={resource.thumbnail_url}
+                                                            alt={resource.title}
+                                                            className={styles.thumbnail}
+                                                        />
+                                                    )}
 
-                                            <div className={styles.cardContent}>
-                                                <span
-                                                    className={styles.category}
-                                                    style={{ backgroundColor: getCategoryColor(resource.category) }}
-                                                >
-                                                    {resource.category.toUpperCase()}
-                                                </span>
-                                                <h3 className={styles.cardTitle}>{resource.title}</h3>
-                                                <p className={styles.author}>by {resource.author}</p>
+                                                    <div className={styles.cardContent}>
+                                                        <span
+                                                            className={styles.category}
+                                                            style={{ backgroundColor: getCategoryColor(resource.category) }}
+                                                        >
+                                                            <FaBook /> {resource.category.toUpperCase()}
+                                                        </span>
+                                                        <h3 className={styles.cardTitle}>{resource.title}</h3>
+                                                        <p className={styles.author}>by {resource.author}</p>
 
-                                                <div className={styles.cardActions}>
-                                                    <a
-                                                        href={resource.pdf_url}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={styles.actionBtn}
-                                                    >
-                                                        <FaExternalLinkAlt /> View
-                                                    </a>
-                                                    <a
-                                                        href={resource.pdf_url}
-                                                        download
-                                                        className={`${styles.actionBtn} ${styles.downloadBtn}`}
-                                                    >
-                                                        <FaDownload /> Download
-                                                    </a>
+                                                        <div className={styles.cardActions}>
+                                                            <a
+                                                                href={resource.pdf_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.actionBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View PDF
+                                                            </a>
+                                                            <a
+                                                                href={resource.pdf_url}
+                                                                download
+                                                                className={`${styles.actionBtn} ${styles.downloadBtn}`}
+                                                            >
+                                                                <FaDownload /> Download
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                /* Video/Audio: Embed YouTube player */
+                                                <div className={styles.videoCard}>
+                                                    <div className={styles.cardContent}>
+                                                        <span
+                                                            className={styles.category}
+                                                            style={{ backgroundColor: getCategoryColor(resource.category) }}
+                                                        >
+                                                            {getCategoryIcon(resource.category)} {resource.category.toUpperCase()}
+                                                        </span>
+                                                        <h3 className={styles.cardTitle}>{resource.title}</h3>
+                                                        <p className={styles.author}>by {resource.author}</p>
+                                                    </div>
+
+                                                    {/* YouTube Embed with pirate theme */}
+                                                    {resource.youtube_url && (
+                                                        <YouTubeEmbed
+                                                            url={resource.youtube_url}
+                                                            title={resource.title}
+                                                            type={resource.category}
+                                                        />
+                                                    )}
                                                 </div>
-                                            </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
