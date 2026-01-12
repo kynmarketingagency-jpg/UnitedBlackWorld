@@ -176,11 +176,12 @@
 }
 
 /* Social Media Link Buttons */
-.socialLinkContainer {
-    padding: 2rem;
+.platformButtons {
+    padding: 1rem 2rem 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
 }
 
 .twitterBtn,

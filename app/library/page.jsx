@@ -84,6 +84,14 @@ function LibraryContent() {
         }
     }
 
+    function getPlatformName(resource) {
+        if (resource.youtube_url) return 'YOUTUBE';
+        if (resource.twitter_url) return 'TWITTER/X';
+        if (resource.instagram_url) return 'INSTAGRAM';
+        if (resource.tiktok_url) return 'TIKTOK';
+        return resource.category.toUpperCase();
+    }
+
     return (
         <main className={styles.main}>
             <Navbar />
@@ -197,14 +205,14 @@ function LibraryContent() {
                                                     </div>
                                                 </>
                                             ) : (
-                                                /* Video/Audio: Show YouTube embed OR Twitter link button */
-                                                <div className={styles.videoCard}>
+                                                /* Video/Audio: Show platform badge and embed/link */
+                                                <>
                                                     <div className={styles.cardContent}>
                                                         <span
                                                             className={styles.category}
                                                             style={{ backgroundColor: getCategoryColor(resource.category) }}
                                                         >
-                                                            {getCategoryIcon(resource.category)} {resource.category.toUpperCase()}
+                                                            {getCategoryIcon(resource.category)} {getPlatformName(resource)}
                                                         </span>
                                                         <h3 className={styles.cardTitle}>{resource.title}</h3>
                                                         <p className={styles.author}>by {resource.author}</p>
@@ -219,48 +227,44 @@ function LibraryContent() {
                                                         />
                                                     )}
 
-                                                    {/* Twitter/X Link Button */}
-                                                    {resource.twitter_url && (
-                                                        <div className={styles.socialLinkContainer}>
-                                                            <a
-                                                                href={resource.twitter_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.twitterBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on Twitter/X
-                                                            </a>
-                                                        </div>
-                                                    )}
+                                                    {/* Social Media Platform Buttons */}
+                                                    {(resource.twitter_url || resource.instagram_url || resource.tiktok_url) && (
+                                                        <div className={styles.platformButtons}>
+                                                            {resource.twitter_url && (
+                                                                <a
+                                                                    href={resource.twitter_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.twitterBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> View on Twitter/X
+                                                                </a>
+                                                            )}
 
-                                                    {/* Instagram Link Button */}
-                                                    {resource.instagram_url && (
-                                                        <div className={styles.socialLinkContainer}>
-                                                            <a
-                                                                href={resource.instagram_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.instagramBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on Instagram
-                                                            </a>
-                                                        </div>
-                                                    )}
+                                                            {resource.instagram_url && (
+                                                                <a
+                                                                    href={resource.instagram_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.instagramBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> View on Instagram
+                                                                </a>
+                                                            )}
 
-                                                    {/* TikTok Link Button */}
-                                                    {resource.tiktok_url && (
-                                                        <div className={styles.socialLinkContainer}>
-                                                            <a
-                                                                href={resource.tiktok_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.tiktokBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on TikTok
-                                                            </a>
+                                                            {resource.tiktok_url && (
+                                                                <a
+                                                                    href={resource.tiktok_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.tiktokBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> View on TikTok
+                                                                </a>
+                                                            )}
                                                         </div>
                                                     )}
-                                                </div>
+                                                </>
                                             )}
                                         </div>
                                     ))}
