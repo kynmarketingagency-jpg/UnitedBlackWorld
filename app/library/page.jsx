@@ -197,36 +197,20 @@ function LibraryContent() {
                                                     </div>
                                                 </>
                                             ) : (
-                                                /* Video/Audio: Show platform-specific badge and button/embed */
-                                                <>
+                                                /* Video/Audio: Show YouTube embed OR Twitter link button */
+                                                <div className={styles.videoCard}>
                                                     <div className={styles.cardContent}>
-                                                        {/* Show platform-specific badge */}
-                                                        {resource.youtube_url && (
-                                                            <span className={styles.category} style={{ backgroundColor: '#FF0000' }}>
-                                                                <FaVideo /> YOUTUBE
-                                                            </span>
-                                                        )}
-                                                        {resource.twitter_url && !resource.youtube_url && (
-                                                            <span className={styles.category} style={{ backgroundColor: '#1DA1F2' }}>
-                                                                <FaVideo /> TWITTER/X
-                                                            </span>
-                                                        )}
-                                                        {resource.instagram_url && !resource.youtube_url && !resource.twitter_url && (
-                                                            <span className={styles.category} style={{ backgroundColor: '#E1306C' }}>
-                                                                <FaVideo /> INSTAGRAM
-                                                            </span>
-                                                        )}
-                                                        {resource.tiktok_url && !resource.youtube_url && !resource.twitter_url && !resource.instagram_url && (
-                                                            <span className={styles.category} style={{ backgroundColor: '#000000' }}>
-                                                                <FaVideo /> TIKTOK
-                                                            </span>
-                                                        )}
-
+                                                        <span
+                                                            className={styles.category}
+                                                            style={{ backgroundColor: getCategoryColor(resource.category) }}
+                                                        >
+                                                            {getCategoryIcon(resource.category)} {resource.category.toUpperCase()}
+                                                        </span>
                                                         <h3 className={styles.cardTitle}>{resource.title}</h3>
                                                         <p className={styles.author}>by {resource.author}</p>
                                                     </div>
 
-                                                    {/* YouTube Embed */}
+                                                    {/* YouTube Embed with pirate theme */}
                                                     {resource.youtube_url && (
                                                         <YouTubeEmbed
                                                             url={resource.youtube_url}
@@ -235,54 +219,48 @@ function LibraryContent() {
                                                         />
                                                     )}
 
-                                                    {/* Social Media Buttons (only show if no YouTube) */}
-                                                    {!resource.youtube_url && (
-                                                        <div className={styles.cardActions}>
-                                                            {resource.twitter_url && (
-                                                                <a
-                                                                    href={resource.twitter_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.socialMediaBtn}
-                                                                    style={{
-                                                                        background: 'linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%)',
-                                                                        border: '2px solid var(--cl-yellow)'
-                                                                    }}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on Twitter/X
-                                                                </a>
-                                                            )}
-                                                            {resource.instagram_url && (
-                                                                <a
-                                                                    href={resource.instagram_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.socialMediaBtn}
-                                                                    style={{
-                                                                        background: 'linear-gradient(135deg, #E1306C 0%, #C13584 50%, #833AB4 100%)',
-                                                                        border: '2px solid var(--cl-yellow)'
-                                                                    }}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on Instagram
-                                                                </a>
-                                                            )}
-                                                            {resource.tiktok_url && (
-                                                                <a
-                                                                    href={resource.tiktok_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.socialMediaBtn}
-                                                                    style={{
-                                                                        background: 'linear-gradient(135deg, #000000 0%, #ee1d52 50%, #69c9d0 100%)',
-                                                                        border: '2px solid var(--cl-yellow)'
-                                                                    }}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on TikTok
-                                                                </a>
-                                                            )}
+                                                    {/* Twitter/X Link Button */}
+                                                    {resource.twitter_url && (
+                                                        <div className={styles.socialLinkContainer}>
+                                                            <a
+                                                                href={resource.twitter_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.twitterBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Twitter/X
+                                                            </a>
                                                         </div>
                                                     )}
-                                                </>
+
+                                                    {/* Instagram Link Button */}
+                                                    {resource.instagram_url && (
+                                                        <div className={styles.socialLinkContainer}>
+                                                            <a
+                                                                href={resource.instagram_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.instagramBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Instagram
+                                                            </a>
+                                                        </div>
+                                                    )}
+
+                                                    {/* TikTok Link Button */}
+                                                    {resource.tiktok_url && (
+                                                        <div className={styles.socialLinkContainer}>
+                                                            <a
+                                                                href={resource.tiktok_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.tiktokBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on TikTok
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             )}
                                         </div>
                                     ))}
