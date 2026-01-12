@@ -204,8 +204,31 @@ function LibraryContent() {
                                                         </div>
                                                     </div>
                                                 </>
+                                            ) : resource.category === 'video' ? (
+                                                /* VIDEO: Show YouTube embed */
+                                                <>
+                                                    <div className={styles.cardContent}>
+                                                        <span
+                                                            className={styles.category}
+                                                            style={{ backgroundColor: getCategoryColor(resource.category) }}
+                                                        >
+                                                            {getCategoryIcon(resource.category)} YOUTUBE
+                                                        </span>
+                                                        <h3 className={styles.cardTitle}>{resource.title}</h3>
+                                                        <p className={styles.author}>by {resource.author}</p>
+                                                    </div>
+
+                                                    {/* YouTube Embed */}
+                                                    {resource.youtube_url && (
+                                                        <YouTubeEmbed
+                                                            url={resource.youtube_url}
+                                                            title={resource.title}
+                                                            type={resource.category}
+                                                        />
+                                                    )}
+                                                </>
                                             ) : (
-                                                /* Video/Audio: Show platform badge and embed/link */
+                                                /* AUDIO: Show platform redirect buttons */
                                                 <>
                                                     <div className={styles.cardContent}>
                                                         <span
@@ -218,52 +241,53 @@ function LibraryContent() {
                                                         <p className={styles.author}>by {resource.author}</p>
                                                     </div>
 
-                                                    {/* YouTube Embed with pirate theme */}
-                                                    {resource.youtube_url && (
-                                                        <YouTubeEmbed
-                                                            url={resource.youtube_url}
-                                                            title={resource.title}
-                                                            type={resource.category}
-                                                        />
-                                                    )}
+                                                    {/* Social Media Platform Buttons for Audio */}
+                                                    <div className={styles.platformButtons}>
+                                                        {resource.twitter_url && (
+                                                            <a
+                                                                href={resource.twitter_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.twitterBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Twitter/X
+                                                            </a>
+                                                        )}
 
-                                                    {/* Social Media Platform Buttons */}
-                                                    {(resource.twitter_url || resource.instagram_url || resource.tiktok_url) && (
-                                                        <div className={styles.platformButtons}>
-                                                            {resource.twitter_url && (
-                                                                <a
-                                                                    href={resource.twitter_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.twitterBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on Twitter/X
-                                                                </a>
-                                                            )}
+                                                        {resource.instagram_url && (
+                                                            <a
+                                                                href={resource.instagram_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.instagramBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Instagram
+                                                            </a>
+                                                        )}
 
-                                                            {resource.instagram_url && (
-                                                                <a
-                                                                    href={resource.instagram_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.instagramBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on Instagram
-                                                                </a>
-                                                            )}
+                                                        {resource.tiktok_url && (
+                                                            <a
+                                                                href={resource.tiktok_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.tiktokBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on TikTok
+                                                            </a>
+                                                        )}
 
-                                                            {resource.tiktok_url && (
-                                                                <a
-                                                                    href={resource.tiktok_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.tiktokBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> View on TikTok
-                                                                </a>
-                                                            )}
-                                                        </div>
-                                                    )}
+                                                        {resource.youtube_url && (
+                                                            <a
+                                                                href={resource.youtube_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.twitterBtn}
+                                                                style={{ background: 'linear-gradient(135deg, #FF0000 0%, #CC0000 100%)' }}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on YouTube
+                                                            </a>
+                                                        )}
+                                                    </div>
                                                 </>
                                             )}
                                         </div>
