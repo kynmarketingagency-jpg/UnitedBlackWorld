@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { getAllResources } from '@/lib/supabase';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
-import TwitterEmbed from '@/components/TwitterEmbed';
 import { FaBook, FaVideo, FaMusic, FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from './library.module.css';
 
@@ -198,7 +197,7 @@ function LibraryContent() {
                                                     </div>
                                                 </>
                                             ) : (
-                                                /* Video/Audio: Embed YouTube player */
+                                                /* Video/Audio: Show YouTube embed OR Twitter link button */
                                                 <div className={styles.videoCard}>
                                                     <div className={styles.cardContent}>
                                                         <span
@@ -220,12 +219,18 @@ function LibraryContent() {
                                                         />
                                                     )}
 
-                                                    {/* Twitter/X Embed with pirate theme */}
+                                                    {/* Twitter/X Link Button */}
                                                     {resource.twitter_url && (
-                                                        <TwitterEmbed
-                                                            url={resource.twitter_url}
-                                                            title={resource.title}
-                                                        />
+                                                        <div className={styles.twitterLinkContainer}>
+                                                            <a
+                                                                href={resource.twitter_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.twitterBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Twitter/X
+                                                            </a>
+                                                        </div>
                                                     )}
                                                 </div>
                                             )}
