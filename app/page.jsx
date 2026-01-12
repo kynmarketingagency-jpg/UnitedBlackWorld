@@ -64,7 +64,11 @@ export default function Home() {
           ) : recentResources.length > 0 ? (
             <div className={styles.resourcesGrid}>
               {recentResources.map((resource) => (
-                <div key={resource.id} className={styles.resourceCard}>
+                <Link
+                  key={resource.id}
+                  href="/library"
+                  className={styles.resourceCard}
+                >
                   {resource.thumbnail_url && (
                     <div className={styles.thumbnail}>
                       <img src={resource.thumbnail_url} alt={resource.title} />
@@ -80,7 +84,7 @@ export default function Home() {
                     <h3 className={styles.resourceTitle}>{resource.title}</h3>
                     <p className={styles.resourceAuthor}>by {resource.author}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (

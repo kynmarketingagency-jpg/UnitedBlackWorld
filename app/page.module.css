@@ -50,6 +50,9 @@
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
   border: 2px solid var(--cl-yellow);
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .resourceCard:hover {
