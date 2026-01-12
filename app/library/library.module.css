@@ -175,6 +175,33 @@
     background: var(--cl-red);
 }
 
+/* Audio Link Card - Whole card is clickable */
+.audioLinkCard {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.audioLinkCard:hover {
+    transform: scale(1.02);
+}
+
+.clickPrompt {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--cl-gray);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--cl-red);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 /* Social Media Link Buttons */
 .platformButtons {
     padding: 1rem 2rem 2rem;

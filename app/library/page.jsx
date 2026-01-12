@@ -228,8 +228,13 @@ function LibraryContent() {
                                                     )}
                                                 </>
                                             ) : (
-                                                /* AUDIO: Simple link buttons */
-                                                <>
+                                                /* AUDIO: Clickable card that redirects to platform */
+                                                <a
+                                                    href={resource.twitter_url || resource.instagram_url || resource.tiktok_url || resource.youtube_url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={styles.audioLinkCard}
+                                                >
                                                     <div className={styles.cardContent}>
                                                         <span
                                                             className={styles.category}
@@ -240,54 +245,11 @@ function LibraryContent() {
                                                         <h3 className={styles.cardTitle}>{resource.title}</h3>
                                                         <p className={styles.author}>by {resource.author}</p>
 
-                                                        <div className={styles.cardActions}>
-                                                            {resource.twitter_url && (
-                                                                <a
-                                                                    href={resource.twitter_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.twitterBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> Twitter/X
-                                                                </a>
-                                                            )}
-
-                                                            {resource.instagram_url && (
-                                                                <a
-                                                                    href={resource.instagram_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.instagramBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> Instagram
-                                                                </a>
-                                                            )}
-
-                                                            {resource.tiktok_url && (
-                                                                <a
-                                                                    href={resource.tiktok_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.tiktokBtn}
-                                                                >
-                                                                    <FaExternalLinkAlt /> TikTok
-                                                                </a>
-                                                            )}
-
-                                                            {resource.youtube_url && (
-                                                                <a
-                                                                    href={resource.youtube_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className={styles.actionBtn}
-                                                                    style={{ background: '#FF0000' }}
-                                                                >
-                                                                    <FaExternalLinkAlt /> YouTube
-                                                                </a>
-                                                            )}
+                                                        <div className={styles.clickPrompt}>
+                                                            <FaExternalLinkAlt /> Click to view on {getPlatformName(resource)}
                                                         </div>
                                                     </div>
-                                                </>
+                                                </a>
                                             )}
                                         </div>
                                     ))}

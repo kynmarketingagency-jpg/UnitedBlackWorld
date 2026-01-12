@@ -280,8 +280,8 @@ export default function AdminDashboard() {
                                     required
                                 >
                                     <option value="books">Book (PDF + Auto Thumbnail)</option>
-                                    <option value="video">Video (YouTube)</option>
-                                    <option value="audio">Audio (YouTube)</option>
+                                    <option value="video">Video (YouTube Embed)</option>
+                                    <option value="audio">Audio (Twitter/X, Instagram, TikTok, YouTube Links)</option>
                                 </select>
                             </div>
 
