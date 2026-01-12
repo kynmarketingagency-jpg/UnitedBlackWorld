@@ -23,7 +23,9 @@ export default function AdminDashboard() {
         category: 'books',
         file: null,          // For PDF (books only)
         youtubeUrl: '',      // For video/audio (YouTube)
-        twitterUrl: ''       // For video/audio (Twitter/X)
+        twitterUrl: '',      // For video/audio (Twitter/X)
+        instagramUrl: '',    // For video/audio (Instagram)
+        tiktokUrl: ''        // For video/audio (TikTok)
     });
 
     useEffect(() => {
@@ -69,7 +71,9 @@ export default function AdminDashboard() {
             category: newCategory,
             file: null,
             youtubeUrl: '',
-            twitterUrl: ''
+            twitterUrl: '',
+            instagramUrl: '',
+            tiktokUrl: ''
         });
     }
 
@@ -123,9 +127,9 @@ export default function AdminDashboard() {
                 console.log('✅ Book uploaded successfully!');
 
             } else {
-                // Video/Audio: Save YouTube or Twitter URL
-                if (!formData.youtubeUrl && !formData.twitterUrl) {
-                    alert('Please enter a YouTube URL or Twitter/X URL');
+                // Video/Audio: Save YouTube, Twitter, Instagram, or TikTok URL
+                if (!formData.youtubeUrl && !formData.twitterUrl && !formData.instagramUrl && !formData.tiktokUrl) {
+                    alert('Please enter at least one URL (YouTube, Twitter/X, Instagram, or TikTok)');
                     return;
                 }
 
@@ -137,13 +141,15 @@ export default function AdminDashboard() {
                     author: formData.author,
                     category: formData.category,
                     youtube_url: formData.youtubeUrl || null,
-                    twitter_url: formData.twitterUrl || null
+                    twitter_url: formData.twitterUrl || null,
+                    instagram_url: formData.instagramUrl || null,
+                    tiktok_url: formData.tiktokUrl || null
                 });
                 console.log('✅ URL saved successfully!');
             }
 
             // Reset form and refresh list
-            setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '' });
+            setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '', instagramUrl: '', tiktokUrl: '' });
             setShowForm(false);
             await fetchResources();
             alert('Resource uploaded successfully! 🎉');
@@ -312,8 +318,26 @@ export default function AdminDashboard() {
                                             onChange={(e) => setFormData({ ...formData, twitterUrl: e.target.value })}
                                             placeholder="https://x.com/username/status/..."
                                         />
+                                    </div>
+                                    <div className={styles.formGroup}>
+                                        <label>Instagram URL</label>
+                                        <input
+                                            type="url"
+                                            value={formData.instagramUrl}
+                                            onChange={(e) => setFormData({ ...formData, instagramUrl: e.target.value })}
+                                            placeholder="https://www.instagram.com/p/..."
+                                        />
+                                    </div>
+                                    <div className={styles.formGroup}>
+                                        <label>TikTok URL</label>
+                                        <input
+                                            type="url"
+                                            value={formData.tiktokUrl}
+                                            onChange={(e) => setFormData({ ...formData, tiktokUrl: e.target.value })}
+                                            placeholder="https://www.tiktok.com/@username/video/..."
+                                        />
                                         <small style={{ display: 'block', marginTop: '4px', color: '#888' }}>
-                                            🐦 Enter either YouTube or Twitter/X URL (at least one required)
+                                            📱 Enter at least one URL (YouTube, Twitter/X, Instagram, or TikTok)
                                         </small>
                                     </div>
                                 </>
@@ -324,7 +348,7 @@ export default function AdminDashboard() {
                                     type="button"
                                     onClick={() => {
                                         setShowForm(false);
-                                        setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '' });
+                                        setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '', instagramUrl: '', tiktokUrl: '' });
                                     }}
                                     className={styles.cancelBtn}
                                     disabled={uploading}
@@ -372,6 +396,14 @@ export default function AdminDashboard() {
                                         ) : resource.twitter_url ? (
                                             <a href={resource.twitter_url} target="_blank" rel="noopener noreferrer">
                                                 <button>View on Twitter/X</button>
+                                            </a>
+                                        ) : resource.instagram_url ? (
+                                            <a href={resource.instagram_url} target="_blank" rel="noopener noreferrer">
+                                                <button>View on Instagram</button>
+                                            </a>
+                                        ) : resource.tiktok_url ? (
+                                            <a href={resource.tiktok_url} target="_blank" rel="noopener noreferrer">
+                                                <button>View on TikTok</button>
                                             </a>
                                         ) : resource.youtube_url ? (
                                             <a href={resource.youtube_url} target="_blank" rel="noopener noreferrer">

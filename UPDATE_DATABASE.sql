@@ -17,6 +17,14 @@ ADD COLUMN IF NOT EXISTS youtube_url TEXT;
 ALTER TABLE resources
 ADD COLUMN IF NOT EXISTS twitter_url TEXT;
 
+-- Add instagram_url for Instagram reels and videos
+ALTER TABLE resources
+ADD COLUMN IF NOT EXISTS instagram_url TEXT;
+
+-- Add tiktok_url for TikTok videos
+ALTER TABLE resources
+ADD COLUMN IF NOT EXISTS tiktok_url TEXT;
+
 -- Update existing records to extract file_path from pdf_url
 UPDATE resources
 SET file_path =

@@ -221,7 +221,7 @@ function LibraryContent() {
 
                                                     {/* Twitter/X Link Button */}
                                                     {resource.twitter_url && (
-                                                        <div className={styles.twitterLinkContainer}>
+                                                        <div className={styles.socialLinkContainer}>
                                                             <a
                                                                 href={resource.twitter_url}
                                                                 target="_blank"
@@ -229,6 +229,34 @@ function LibraryContent() {
                                                                 className={styles.twitterBtn}
                                                             >
                                                                 <FaExternalLinkAlt /> View on Twitter/X
+                                                            </a>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Instagram Link Button */}
+                                                    {resource.instagram_url && (
+                                                        <div className={styles.socialLinkContainer}>
+                                                            <a
+                                                                href={resource.instagram_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.instagramBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on Instagram
+                                                            </a>
+                                                        </div>
+                                                    )}
+
+                                                    {/* TikTok Link Button */}
+                                                    {resource.tiktok_url && (
+                                                        <div className={styles.socialLinkContainer}>
+                                                            <a
+                                                                href={resource.tiktok_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className={styles.tiktokBtn}
+                                                            >
+                                                                <FaExternalLinkAlt /> View on TikTok
                                                             </a>
                                                         </div>
                                                     )}
