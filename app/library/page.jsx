@@ -212,7 +212,7 @@ function LibraryContent() {
                                                             className={styles.category}
                                                             style={{ backgroundColor: getCategoryColor(resource.category) }}
                                                         >
-                                                            {getCategoryIcon(resource.category)} YOUTUBE
+                                                            <FaVideo /> YOUTUBE
                                                         </span>
                                                         <h3 className={styles.cardTitle}>{resource.title}</h3>
                                                         <p className={styles.author}>by {resource.author}</p>
@@ -228,65 +228,64 @@ function LibraryContent() {
                                                     )}
                                                 </>
                                             ) : (
-                                                /* AUDIO: Show platform redirect buttons */
+                                                /* AUDIO: Simple link buttons */
                                                 <>
                                                     <div className={styles.cardContent}>
                                                         <span
                                                             className={styles.category}
                                                             style={{ backgroundColor: getCategoryColor(resource.category) }}
                                                         >
-                                                            {getCategoryIcon(resource.category)} {getPlatformName(resource)}
+                                                            <FaMusic /> {getPlatformName(resource)}
                                                         </span>
                                                         <h3 className={styles.cardTitle}>{resource.title}</h3>
                                                         <p className={styles.author}>by {resource.author}</p>
-                                                    </div>
 
-                                                    {/* Social Media Platform Buttons for Audio */}
-                                                    <div className={styles.platformButtons}>
-                                                        {resource.twitter_url && (
-                                                            <a
-                                                                href={resource.twitter_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.twitterBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on Twitter/X
-                                                            </a>
-                                                        )}
+                                                        <div className={styles.cardActions}>
+                                                            {resource.twitter_url && (
+                                                                <a
+                                                                    href={resource.twitter_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.twitterBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> Twitter/X
+                                                                </a>
+                                                            )}
 
-                                                        {resource.instagram_url && (
-                                                            <a
-                                                                href={resource.instagram_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.instagramBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on Instagram
-                                                            </a>
-                                                        )}
+                                                            {resource.instagram_url && (
+                                                                <a
+                                                                    href={resource.instagram_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.instagramBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> Instagram
+                                                                </a>
+                                                            )}
 
-                                                        {resource.tiktok_url && (
-                                                            <a
-                                                                href={resource.tiktok_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.tiktokBtn}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on TikTok
-                                                            </a>
-                                                        )}
+                                                            {resource.tiktok_url && (
+                                                                <a
+                                                                    href={resource.tiktok_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.tiktokBtn}
+                                                                >
+                                                                    <FaExternalLinkAlt /> TikTok
+                                                                </a>
+                                                            )}
 
-                                                        {resource.youtube_url && (
-                                                            <a
-                                                                href={resource.youtube_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className={styles.twitterBtn}
-                                                                style={{ background: 'linear-gradient(135deg, #FF0000 0%, #CC0000 100%)' }}
-                                                            >
-                                                                <FaExternalLinkAlt /> View on YouTube
-                                                            </a>
-                                                        )}
+                                                            {resource.youtube_url && (
+                                                                <a
+                                                                    href={resource.youtube_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className={styles.actionBtn}
+                                                                    style={{ background: '#FF0000' }}
+                                                                >
+                                                                    <FaExternalLinkAlt /> YouTube
+                                                                </a>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </>
                                             )}
