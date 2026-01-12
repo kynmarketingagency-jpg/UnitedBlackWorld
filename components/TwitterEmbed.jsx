@@ -47,10 +47,18 @@ export default function TwitterEmbed({ url, title }) {
         script.src = 'https://platform.twitter.com/widgets.js';
         script.async = true;
         script.charset = 'utf-8';
+        script.onload = () => {
+          // Once loaded, process the widgets
+          if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load();
+          }
+        };
         document.body.appendChild(script);
       } else {
         // If script already loaded, reload widgets
-        window.twttr.widgets.load();
+        if (window.twttr.widgets) {
+          window.twttr.widgets.load();
+        }
       }
     }
   }, [embedUrl]);

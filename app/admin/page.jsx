@@ -369,11 +369,15 @@ export default function AdminDashboard() {
                                             <a href={resource.pdf_url} target="_blank" rel="noopener noreferrer">
                                                 <button>View PDF</button>
                                             </a>
-                                        ) : (
+                                        ) : resource.twitter_url ? (
+                                            <a href={resource.twitter_url} target="_blank" rel="noopener noreferrer">
+                                                <button>View on Twitter/X</button>
+                                            </a>
+                                        ) : resource.youtube_url ? (
                                             <a href={resource.youtube_url} target="_blank" rel="noopener noreferrer">
                                                 <button>View on YouTube</button>
                                             </a>
-                                        )}
+                                        ) : null}
                                         <button
                                             onClick={() => handleDelete(resource)}
                                             className={styles.deleteBtn}
