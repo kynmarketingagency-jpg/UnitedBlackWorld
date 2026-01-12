@@ -22,7 +22,8 @@ export default function AdminDashboard() {
         author: '',
         category: 'books',
         file: null,          // For PDF (books only)
-        youtubeUrl: ''       // For video/audio
+        youtubeUrl: '',      // For video/audio (YouTube)
+        twitterUrl: ''       // For video/audio (Twitter/X)
     });
 
     useEffect(() => {
@@ -67,7 +68,8 @@ export default function AdminDashboard() {
             ...formData,
             category: newCategory,
             file: null,
-            youtubeUrl: ''
+            youtubeUrl: '',
+            twitterUrl: ''
         });
     }
 
@@ -121,26 +123,27 @@ export default function AdminDashboard() {
                 console.log('✅ Book uploaded successfully!');
 
             } else {
-                // Video/Audio: Just save YouTube URL
-                if (!formData.youtubeUrl) {
-                    alert('Please enter a YouTube URL');
+                // Video/Audio: Save YouTube or Twitter URL
+                if (!formData.youtubeUrl && !formData.twitterUrl) {
+                    alert('Please enter a YouTube URL or Twitter/X URL');
                     return;
                 }
 
                 console.log(`🎬 Processing ${formData.category} upload...`);
 
-                // Save YouTube URL to database
+                // Save URL to database
                 await createResource({
                     title: formData.title,
                     author: formData.author,
                     category: formData.category,
-                    youtube_url: formData.youtubeUrl
+                    youtube_url: formData.youtubeUrl || null,
+                    twitter_url: formData.twitterUrl || null
                 });
-                console.log('✅ YouTube URL saved successfully!');
+                console.log('✅ URL saved successfully!');
             }
 
             // Reset form and refresh list
-            setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '' });
+            setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '' });
             setShowForm(false);
             await fetchResources();
             alert('Resource uploaded successfully! 🎉');
@@ -291,16 +294,29 @@ export default function AdminDashboard() {
                                     </small>
                                 </div>
                             ) : (
-                                <div className={styles.formGroup}>
-                                    <label>YouTube URL *</label>
-                                    <input
-                                        type="url"
-                                        value={formData.youtubeUrl}
-                                        onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
-                                        required
-                                        placeholder="https://www.youtube.com/watch?v=..."
-                                    />
-                                </div>
+                                <>
+                                    <div className={styles.formGroup}>
+                                        <label>YouTube URL</label>
+                                        <input
+                                            type="url"
+                                            value={formData.youtubeUrl}
+                                            onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
+                                            placeholder="https://www.youtube.com/watch?v=..."
+                                        />
+                                    </div>
+                                    <div className={styles.formGroup}>
+                                        <label>Twitter/X URL</label>
+                                        <input
+                                            type="url"
+                                            value={formData.twitterUrl}
+                                            onChange={(e) => setFormData({ ...formData, twitterUrl: e.target.value })}
+                                            placeholder="https://x.com/username/status/..."
+                                        />
+                                        <small style={{ display: 'block', marginTop: '4px', color: '#888' }}>
+                                            🐦 Enter either YouTube or Twitter/X URL (at least one required)
+                                        </small>
+                                    </div>
+                                </>
                             )}
 
                             <div className={styles.actions}>
@@ -308,7 +324,7 @@ export default function AdminDashboard() {
                                     type="button"
                                     onClick={() => {
                                         setShowForm(false);
-                                        setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '' });
+                                        setFormData({ title: '', author: '', category: 'books', file: null, youtubeUrl: '', twitterUrl: '' });
                                     }}
                                     className={styles.cancelBtn}
                                     disabled={uploading}

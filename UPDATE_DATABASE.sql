@@ -13,6 +13,10 @@ ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
 ALTER TABLE resources
 ADD COLUMN IF NOT EXISTS youtube_url TEXT;
 
+-- Add twitter_url for Twitter/X live videos and spaces
+ALTER TABLE resources
+ADD COLUMN IF NOT EXISTS twitter_url TEXT;
+
 -- Update existing records to extract file_path from pdf_url
 UPDATE resources
 SET file_path =

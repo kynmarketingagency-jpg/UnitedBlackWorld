@@ -1,0 +1,86 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: 12px;
+  border: 3px solid #1DA1F2; /* Twitter blue */
+  box-shadow:
+    0 0 20px rgba(29, 161, 242, 0.3),
+    inset 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+.wrapper {
+  position: relative;
+  min-height: 200px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  background: #15202b; /* Twitter dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Pirate-themed decorative frame */
+.pirateFrame {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg,
+    #1DA1F2 0%,
+    var(--cl-yellow) 25%,
+    #1DA1F2 50%,
+    var(--cl-yellow) 75%,
+    #1DA1F2 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.error {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(29, 161, 242, 0.1);
+  border: 2px solid #1DA1F2;
+  border-radius: 8px;
+  color: #1DA1F2;
+  font-weight: 600;
+}
+
+.errorHint {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Hover effect - gold glow */
+.container:hover {
+  border-color: var(--cl-yellow);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.4),
+    inset 0 0 40px rgba(255, 215, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.container:hover .pirateFrame {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+}
