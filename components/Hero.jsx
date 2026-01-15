@@ -36,7 +36,7 @@ export default function Hero() {
 
             <div className={styles.content} ref={contentRef}>
                 <h1 className={styles.title}>
-                    My Journey to <span className={styles.highlight}>Unity</span>
+                    Every Man Has Two <span className={styles.highlight}>Educators</span>
                 </h1>
                 <p className={styles.subtitle}>
                     "Every man has two educators: that which is given to him, and the other that which he gives himself. Of the two kinds the latter is by far the more desirable. Indeed all that is most worthy in man he must work out and conquer for himself. It is that which constitutes our real and best nourishment. What we are merely taught seldom nourishes the mind like that which we teach ourselves."
