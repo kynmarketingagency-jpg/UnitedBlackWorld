@@ -1,12 +1,12 @@
 .hero {
     background-color: var(--cl-dark);
-    height: 400px;
+    min-height: 420px;
     color: white;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding: 0 4rem;
+    padding: 3rem 4rem;
 }
 
 .content {
@@ -27,11 +27,19 @@
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 300;
     color: #CCC;
     line-height: 1.6;
-    max-width: 450px;
+    max-width: 550px;
+    font-style: italic;
+}
+
+.attribution {
+    font-size: 0.9rem;
+    color: var(--cl-yellow);
+    margin-top: 0.75rem;
+    font-weight: 400;
 }
 
 .overlay {
@@ -55,16 +63,21 @@
 
 @media (max-width: 768px) {
     .hero {
-        height: 300px;
-        padding: 0 2rem;
+        height: auto;
+        min-height: 350px;
+        padding: 2rem;
     }
 
     .title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .attribution {
+        font-size: 0.8rem;
     }
 
     .compassContainer {

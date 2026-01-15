@@ -39,8 +39,10 @@ export default function Hero() {
                     My Journey to <span className={styles.highlight}>Unity</span>
                 </h1>
                 <p className={styles.subtitle}>
-                    "I believe that we are stronger together. This is my personal collection of thoughts, evidence, and dreams for a United Black World.
-                    Here I document the path forward."
+                    "Every man has two educators: that which is given to him, and the other that which he gives himself. Of the two kinds the latter is by far the more desirable. Indeed all that is most worthy in man he must work out and conquer for himself. It is that which constitutes our real and best nourishment. What we are merely taught seldom nourishes the mind like that which we teach ourselves."
+                </p>
+                <p className={styles.attribution}>
+                    — Carter G. Woodson, <em>The Mis-Education of the Negro</em>
                 </p>
             </div>
         </div>
