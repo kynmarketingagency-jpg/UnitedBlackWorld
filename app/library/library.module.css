@@ -308,14 +308,58 @@
 
     .grid {
         grid-template-columns: 1fr;
+        padding: 0 1rem;
     }
 
     .filterTabs {
         gap: 0.5rem;
+        padding: 0 1rem;
     }
 
     .tab {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .platformButtons {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .twitterBtn,
+    .instagramBtn,
+    .tiktokBtn {
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .cardActions {
+        flex-direction: column;
+    }
+
+    .actionBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .cardTitle {
+        font-size: 1.15rem;
+    }
+
+    .tab {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .thumbnail {
+        height: 200px;
     }
 }

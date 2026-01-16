@@ -1,19 +1,25 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaAnchor, FaSearch, FaSkull } from 'react-icons/fa';
+import { FaAnchor, FaSearch, FaSkull, FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
     const [query, setQuery] = useState('');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const router = useRouter();
 
     function handleSearch(e) {
         e.preventDefault();
         if (query.trim()) {
             router.push(`/library?q=${encodeURIComponent(query.trim())}`);
+            setMobileMenuOpen(false);
         }
+    }
+
+    function handleLinkClick() {
+        setMobileMenuOpen(false);
     }
 
     return (
@@ -28,14 +34,22 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className={styles.rightSection}>
+            <button
+                className={styles.hamburger}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+            >
+                {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+
+            <div className={`${styles.rightSection} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
                 <div className={styles.links}>
-                    <Link href="/">Home</Link>
-                    <Link href="/library">The Library</Link>
-                    <a href="#manifesto">My Manifesto</a>
-                    <a href="#struggle">The Struggle</a>
-                    <a href="#sounds">Sounds</a>
-                    <a href="#visions">Visions</a>
+                    <Link href="/" onClick={handleLinkClick}>Home</Link>
+                    <Link href="/library" onClick={handleLinkClick}>The Library</Link>
+                    <a href="#manifesto" onClick={handleLinkClick}>My Manifesto</a>
+                    <a href="#struggle" onClick={handleLinkClick}>The Struggle</a>
+                    <a href="#sounds" onClick={handleLinkClick}>Sounds</a>
+                    <a href="#visions" onClick={handleLinkClick}>Visions</a>
                 </div>
 
                 <form onSubmit={handleSearch} className={styles.searchContainer}>
@@ -49,7 +63,7 @@ export default function Navbar() {
                     />
                 </form>
 
-                <Link href="/login" className={styles.profileIcon} title="Captain's Quarters">
+                <Link href="/login" className={styles.profileIcon} title="Captain's Quarters" onClick={handleLinkClick}>
                     <FaSkull />
                 </Link>
             </div>
