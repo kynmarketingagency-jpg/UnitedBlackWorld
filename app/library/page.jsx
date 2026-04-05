@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import { getAllResources } from '@/lib/supabase';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
@@ -168,9 +169,12 @@ function LibraryContent() {
                                                 <>
                                                     {/* Thumbnail */}
                                                     {resource.thumbnail_url && (
-                                                        <img
+                                                        <Image
                                                             src={resource.thumbnail_url}
                                                             alt={resource.title}
+                                                            width={300}
+                                                            height={400}
+                                                            loading="lazy"
                                                             className={styles.thumbnail}
                                                         />
                                                     )}

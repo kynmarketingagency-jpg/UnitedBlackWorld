@@ -49,6 +49,7 @@ export default function YouTubeEmbed({ url, title, type = 'video' }) {
           src={embedUrl}
           title={title || `YouTube ${type}`}
           frameBorder="0"
+          loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>

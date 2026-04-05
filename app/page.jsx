@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import Image from 'next/image';
 import Link from 'next/link';
 import { getAllResources } from '@/lib/supabase';
 import { FaBook, FaVideo, FaMusic } from 'react-icons/fa';
@@ -14,9 +15,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchRecentResources() {
       try {
-        const resources = await getAllResources();
-        // Get the 6 most recent resources
-        const recent = resources.slice(0, 6);
+        const recent = await getAllResources(null, 6);
         setRecentResources(recent);
       } catch (error) {
         console.error('Error fetching recent resources:', error);
@@ -71,7 +70,7 @@ export default function Home() {
                 >
                   {resource.thumbnail_url && (
                     <div className={styles.thumbnail}>
-                      <img src={resource.thumbnail_url} alt={resource.title} />
+                      <Image src={resource.thumbnail_url} alt={resource.title} width={300} height={400} loading="lazy" />
                     </div>
                   )}
                   <div className={styles.resourceContent}>

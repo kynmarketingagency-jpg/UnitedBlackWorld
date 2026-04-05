@@ -1,40 +1,16 @@
-'use client';
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
 import { FaCompass } from 'react-icons/fa';
 import styles from './Hero.module.css';
 
 export default function Hero() {
-    const contentRef = useRef(null);
-    const compassRef = useRef(null);
-
-    useEffect(() => {
-        if (contentRef.current) {
-            gsap.fromTo(contentRef.current,
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
-            );
-        }
-
-        if (compassRef.current) {
-            gsap.to(compassRef.current, {
-                rotation: 360,
-                duration: 120,
-                repeat: -1,
-                ease: 'linear'
-            });
-        }
-    }, []);
-
     return (
         <div className={styles.hero}>
             <div className={styles.overlay}>
-                <div className={styles.compassContainer} ref={compassRef}>
+                <div className={styles.compassContainer}>
                     <FaCompass className={styles.bgCompass} />
                 </div>
             </div>
 
-            <div className={styles.content} ref={contentRef}>
+            <div className={styles.content}>
                 <h1 className={styles.title}>
                     Every Man Has Two <span className={styles.highlight}>Educators</span>
                 </h1>

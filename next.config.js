@@ -2,11 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['ankanowfwxpeuovwnjai.supabase.co'], // Your Supabase project URL
-  },
-  env: {
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ankanowfwxpeuovwnjai.supabase.co',
+      },
+    ],
   },
 }
 
