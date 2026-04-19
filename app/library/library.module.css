@@ -363,3 +363,19 @@
         height: 200px;
     }
 }
+
+.loadMoreBtn {
+    background: var(--cl-red);
+    color: white;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.loadMoreBtn:hover {
+    background: #d32c22;
+    transform: translateY(-1px);
+}

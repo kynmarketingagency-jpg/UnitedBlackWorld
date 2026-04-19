@@ -8,12 +8,15 @@ import styles from './Admin.module.css';
 // Prevent static generation for this page
 export const dynamic = 'force-dynamic';
 
+const ADMIN_PAGE_SIZE = 30;
+
 export default function AdminDashboard() {
     const [resources, setResources] = useState([]);
     const [activeTab, setActiveTab] = useState('all');
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(ADMIN_PAGE_SIZE);
     const router = useRouter();
 
     // Form state
@@ -168,13 +171,10 @@ export default function AdminDashboard() {
         }
 
         try {
-            // Extract thumbnail path from thumbnail_url if it exists
             let thumbnailPath = null;
-            if (resource.thumbnail_url && resource.thumbnail_url.includes('/thumbnails/')) {
-                const parts = resource.thumbnail_url.split('/thumbnails/');
-                if (parts[1]) {
-                    thumbnailPath = 'thumbnails/' + parts[1];
-                }
+            if (resource.thumbnail_url) {
+                const match = resource.thumbnail_url.match(/\/(thumbnails\/[^?]+)/);
+                if (match) thumbnailPath = match[1];
             }
 
             await deleteResource(resource.id, resource.file_path, thumbnailPath);
@@ -189,6 +189,12 @@ export default function AdminDashboard() {
     const filteredResources = activeTab === 'all'
         ? resources
         : resources.filter(r => r.category === activeTab);
+
+    useEffect(() => {
+        setVisibleCount(ADMIN_PAGE_SIZE);
+    }, [activeTab]);
+
+    const visibleResources = filteredResources.slice(0, visibleCount);
 
     return (
         <div className={styles.adminContainer}>
@@ -371,13 +377,14 @@ export default function AdminDashboard() {
                         {filteredResources.length === 0 ? (
                             <div className={styles.emptyMessage}>No resources found</div>
                         ) : (
-                            filteredResources.map((resource) => (
+                            visibleResources.map((resource) => (
                                 <div key={resource.id} className={styles.card}>
                                     {/* Show thumbnail for books */}
                                     {resource.category === 'books' && resource.thumbnail_url && (
                                         <img
                                             src={resource.thumbnail_url}
                                             alt={resource.title}
+                                            loading="lazy"
                                             className={styles.thumbnail}
                                         />
                                     )}
@@ -420,6 +427,16 @@ export default function AdminDashboard() {
                                 </div>
                             ))
                         )}
+                    </div>
+                )}
+                {!loading && filteredResources.length > visibleCount && (
+                    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                        <button
+                            onClick={() => setVisibleCount((n) => n + ADMIN_PAGE_SIZE)}
+                            className={styles.newBtn}
+                        >
+                            Load More ({filteredResources.length - visibleCount} remaining)
+                        </button>
                     </div>
                 )}
             </main>

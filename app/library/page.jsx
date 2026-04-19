@@ -8,9 +8,12 @@ import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { FaBook, FaVideo, FaMusic, FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
 import styles from './library.module.css';
 
+const PAGE_SIZE = 48;
+
 function LibraryContent() {
     const [resources, setResources] = useState([]);
     const [filteredResources, setFilteredResources] = useState([]);
+    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const [activeFilter, setActiveFilter] = useState('all');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -24,6 +27,7 @@ function LibraryContent() {
 
     useEffect(() => {
         filterResources();
+        setVisibleCount(PAGE_SIZE);
     }, [activeFilter, resources, searchQuery]);
 
     async function fetchResources() {
@@ -162,7 +166,7 @@ function LibraryContent() {
                                 </div>
                             ) : (
                                 <div className={styles.grid}>
-                                    {filteredResources.map((resource) => (
+                                    {filteredResources.slice(0, visibleCount).map((resource, idx) => (
                                         <div key={resource.id} className={styles.card}>
                                             {/* Books: Show thumbnail and PDF actions */}
                                             {resource.category === 'books' ? (
@@ -174,7 +178,8 @@ function LibraryContent() {
                                                             alt={resource.title}
                                                             width={300}
                                                             height={400}
-                                                            loading="lazy"
+                                                            loading={idx < 6 ? 'eager' : 'lazy'}
+                                                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
                                                             className={styles.thumbnail}
                                                         />
                                                     )}
@@ -257,6 +262,16 @@ function LibraryContent() {
                                             )}
                                         </div>
                                     ))}
+                                </div>
+                            )}
+                            {filteredResources.length > visibleCount && (
+                                <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                                    <button
+                                        onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+                                        className={styles.loadMoreBtn}
+                                    >
+                                        Load More ({filteredResources.length - visibleCount} remaining)
+                                    </button>
                                 </div>
                             )}
                         </>

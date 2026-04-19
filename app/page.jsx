@@ -1,53 +1,51 @@
-'use client';
-import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import ContinuousPlayer from '@/components/ContinuousPlayer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllResources } from '@/lib/supabase';
 import { FaBook, FaVideo, FaMusic } from 'react-icons/fa';
 import styles from './page.module.css';
 
-export default function Home() {
-  const [recentResources, setRecentResources] = useState([]);
-  const [loading, setLoading] = useState(true);
+export const revalidate = 300;
 
-  useEffect(() => {
-    async function fetchRecentResources() {
-      try {
-        const recent = await getAllResources(null, 6);
-        setRecentResources(recent);
-      } catch (error) {
-        console.error('Error fetching recent resources:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchRecentResources();
-  }, []);
+function categoryIcon(category) {
+  switch (category) {
+    case 'books': return <FaBook />;
+    case 'video': return <FaVideo />;
+    case 'audio': return <FaMusic />;
+    default: return <FaBook />;
+  }
+}
 
-  const getCategoryIcon = (category) => {
-    switch (category) {
-      case 'books': return <FaBook />;
-      case 'video': return <FaVideo />;
-      case 'audio': return <FaMusic />;
-      default: return <FaBook />;
-    }
-  };
+function categoryColor(category) {
+  switch (category) {
+    case 'books': return '#3b82f6';
+    case 'video': return '#ef4444';
+    case 'audio': return '#f59e0b';
+    default: return '#3b82f6';
+  }
+}
 
-  const getCategoryColor = (category) => {
-    switch (category) {
-      case 'books': return '#3b82f6'; // Blue
-      case 'video': return '#ef4444'; // Red
-      case 'audio': return '#f59e0b'; // Yellow/Orange
-      default: return '#3b82f6';
-    }
-  };
+export default async function Home() {
+  let recentResources = [];
+  try {
+    recentResources = await getAllResources(null, 6);
+  } catch (error) {
+    console.error('Error fetching recent resources:', error);
+  }
 
   return (
     <main className={styles.main}>
       <Navbar />
       <Hero />
+
+      <div style={{ textAlign: 'center', padding: '1.5rem 1rem 0.75rem' }}>
+        <h2 className={styles.sectionTitle} style={{ margin: 0 }}>
+          Revolutionary <span className={styles.highlight}>Broadcast</span>
+        </h2>
+      </div>
+      <ContinuousPlayer />
 
       <section className={styles.section}>
         <div className="container">
@@ -58,11 +56,9 @@ export default function Home() {
             Explore our growing collection of revolutionary knowledge, theory, and practice.
           </p>
 
-          {loading ? (
-            <p style={{ textAlign: 'center', color: '#888', padding: '2rem' }}>Loading recent additions...</p>
-          ) : recentResources.length > 0 ? (
+          {recentResources.length > 0 ? (
             <div className={styles.resourcesGrid}>
-              {recentResources.map((resource) => (
+              {recentResources.map((resource, idx) => (
                 <Link
                   key={resource.id}
                   href="/library"
@@ -70,15 +66,22 @@ export default function Home() {
                 >
                   {resource.thumbnail_url && (
                     <div className={styles.thumbnail}>
-                      <Image src={resource.thumbnail_url} alt={resource.title} width={300} height={400} loading="lazy" />
+                      <Image
+                        src={resource.thumbnail_url}
+                        alt={resource.title}
+                        width={300}
+                        height={400}
+                        priority={idx < 3}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
+                      />
                     </div>
                   )}
                   <div className={styles.resourceContent}>
                     <span
                       className={styles.categoryBadge}
-                      style={{ backgroundColor: getCategoryColor(resource.category) }}
+                      style={{ backgroundColor: categoryColor(resource.category) }}
                     >
-                      {getCategoryIcon(resource.category)} {resource.category.toUpperCase()}
+                      {categoryIcon(resource.category)} {resource.category.toUpperCase()}
                     </span>
                     <h3 className={styles.resourceTitle}>{resource.title}</h3>
                     <p className={styles.resourceAuthor}>by {resource.author}</p>

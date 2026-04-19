@@ -417,3 +417,22 @@ await fetch('/api/upload', {
 ---
 
 **Power to the people. Knowledge is freedom.** ✊
+
+
+
+What needs to change:                                                                                                        
+                                                                                                                               
+  1. Create a Cloudflare R2 bucket (you need a Cloudflare account)                                                             
+  2. Write a migration script to copy all 570 files from Supabase to R2                                                        
+  3. Update upload code (lib/supabase.js) to upload to R2 instead                                                              
+  4. Update DB records to point to R2 URLs                                                                                     
+  5. Update next.config.js for R2 image domains                                                                                
+  6. Delete files from Supabase Storage after migration                                                                        
+                                                                                                                               
+  Before I start coding — do you already have a Cloudflare account? If not, you'll need to:                                    
+  1. Sign up at cloudflare.com (free)                                                                                          
+  2. Go to R2 in the sidebar                                                                                                   
+  3. Create a bucket (name it something like ubw-archives)                                                                 
+  4. Create an API token with R2 read/write access                                                                             
+  5. Get your Account ID, Access Key ID, and Secret Access Key                                                                 
+                                                                   
