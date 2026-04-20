@@ -16,6 +16,8 @@ export default function AdminDashboard() {
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
+    const [uploadStage, setUploadStage] = useState('');
+    const [uploadProgress, setUploadProgress] = useState(0);
     const [visibleCount, setVisibleCount] = useState(ADMIN_PAGE_SIZE);
     const router = useRouter();
 
@@ -85,40 +87,35 @@ export default function AdminDashboard() {
 
         try {
             setUploading(true);
+            setUploadProgress(0);
 
             if (formData.category === 'books') {
-                // Books: Upload PDF + auto-generate thumbnail
                 if (!formData.file) {
                     alert('Please select a PDF file');
                     return;
                 }
 
-                console.log('📚 Processing book upload...');
-
-                // Step 1: Upload PDF to storage
-                console.log('📤 Uploading PDF...');
+                setUploadStage(`Uploading PDF (${(formData.file.size / 1024 / 1024).toFixed(1)} MB)...`);
                 const { url: pdfUrl, path: pdfPath } = await uploadFileToStorage(
                     formData.file,
-                    'books'
+                    'books',
+                    (pct) => setUploadProgress(pct)
                 );
-                console.log('✅ PDF uploaded:', pdfUrl);
 
-                // Step 2: Generate thumbnail from PDF first page (dynamic import)
-                console.log('🖼️ Generating thumbnail from PDF...');
+                setUploadStage('Generating thumbnail...');
+                setUploadProgress(0);
                 const { generateThumbnailFile } = await import('@/lib/pdfThumbnail');
                 const thumbnailFile = await generateThumbnailFile(formData.file);
-                console.log('✅ Thumbnail generated');
 
-                // Step 3: Upload thumbnail to storage
-                console.log('📤 Uploading thumbnail...');
-                const { url: thumbnailUrl, path: thumbnailPath } = await uploadFileToStorage(
+                setUploadStage('Uploading thumbnail...');
+                const { url: thumbnailUrl } = await uploadFileToStorage(
                     thumbnailFile,
-                    'thumbnails'
+                    'thumbnails',
+                    (pct) => setUploadProgress(pct)
                 );
-                console.log('✅ Thumbnail uploaded:', thumbnailUrl);
 
-                // Step 4: Save metadata to database
-                console.log('💾 Saving to database...');
+                setUploadStage('Saving to database...');
+                setUploadProgress(100);
                 await createResource({
                     title: formData.title,
                     author: formData.author,
@@ -127,7 +124,6 @@ export default function AdminDashboard() {
                     file_path: pdfPath,
                     thumbnail_url: thumbnailUrl
                 });
-                console.log('✅ Book uploaded successfully!');
 
             } else {
                 // Video/Audio: Save YouTube, Twitter, Instagram, or TikTok URL
@@ -162,6 +158,8 @@ export default function AdminDashboard() {
             alert('Upload failed: ' + error.message);
         } finally {
             setUploading(false);
+            setUploadStage('');
+            setUploadProgress(0);
         }
     }
 
@@ -349,6 +347,41 @@ export default function AdminDashboard() {
                                 </>
                             )}
 
+                            {uploading && (
+                                <div style={{
+                                    margin: '1rem 0',
+                                    padding: '1rem',
+                                    background: 'rgba(239, 68, 68, 0.08)',
+                                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                                    borderRadius: '8px',
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        marginBottom: '0.5rem',
+                                        fontSize: '0.85rem',
+                                        color: '#f5f5f7',
+                                    }}>
+                                        <span>{uploadStage || 'Processing...'}</span>
+                                        <span style={{ color: '#f59e0b', fontWeight: 600 }}>{uploadProgress}%</span>
+                                    </div>
+                                    <div style={{
+                                        height: '8px',
+                                        background: 'rgba(255, 255, 255, 0.1)',
+                                        borderRadius: '4px',
+                                        overflow: 'hidden',
+                                    }}>
+                                        <div style={{
+                                            height: '100%',
+                                            width: `${uploadProgress}%`,
+                                            background: 'linear-gradient(90deg, #ef4444, #f59e0b)',
+                                            borderRadius: '4px',
+                                            transition: 'width 0.2s ease',
+                                        }}></div>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className={styles.actions}>
                                 <button
                                     type="button"
@@ -362,7 +395,7 @@ export default function AdminDashboard() {
                                     Cancel
                                 </button>
                                 <button type="submit" className={styles.saveBtn} disabled={uploading}>
-                                    {uploading ? 'Processing...' : 'Upload Resource'}
+                                    {uploading ? (uploadStage || 'Processing...') : 'Upload Resource'}
                                 </button>
                             </div>
                         </form>
