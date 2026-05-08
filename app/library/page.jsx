@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
+import LibrarianPanel from '@/components/LibrarianPanel';
 import { getAllResources } from '@/lib/supabase';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 import { FaBook, FaVideo, FaMusic, FaDownload, FaExternalLinkAlt } from 'react-icons/fa';
@@ -113,6 +114,9 @@ function LibraryContent() {
                             </p>
                         )}
                     </div>
+
+                    {/* Librarian (semantic) panel — only renders when there's a search query */}
+                    <LibrarianPanel query={searchQuery} />
 
                     {/* Filter Tabs */}
                     <div className={styles.filterTabs}>

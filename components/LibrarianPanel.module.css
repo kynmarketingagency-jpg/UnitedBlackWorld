@@ -1,0 +1,238 @@
+/* Bold dark panel — matches the Hero/header aesthetic.
+   Black slab, gold + red accents, Cinzel manuscript feel. */
+
+.panel {
+    background: var(--cl-dark);
+    color: white;
+    margin-bottom: 2.5rem;
+    padding: 2.25rem 2rem 2rem;
+    position: relative;
+    border-top: 4px solid var(--cl-red);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Subtle paper-grain effect with two faint diagonal stripes,
+   so it doesn't read as a flat black box. */
+.panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            -45deg,
+            transparent 0 14px,
+            rgba(255, 255, 255, 0.018) 14px 15px
+        );
+    pointer-events: none;
+}
+
+.panel > * { position: relative; z-index: 1; }
+
+/* ─── Header stamp ─── */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.headerIcon {
+    color: var(--cl-yellow);
+    font-size: 1.4rem;
+}
+
+.headerLabel {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--cl-yellow);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* ─── Greeting line ─── */
+.greeting {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    max-width: 780px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 0.65rem;
+    background: var(--cl-red);
+    animation: pulse 1s ease-in-out infinite;
+    vertical-align: middle;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.25; }
+    50%      { opacity: 1; }
+}
+
+.errorMsg {
+    color: #CCC;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+/* ─── Passage list ─── */
+.passages {
+    display: flex;
+    flex-direction: column;
+}
+
+.passage {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background 0.2s;
+}
+
+.passage:last-child {
+    border-bottom: none;
+    padding-bottom: 0.5rem;
+}
+
+.passage:hover {
+    background: rgba(255, 59, 48, 0.04);
+}
+
+/* Big manuscript-style number, hanging in the gutter. */
+.passageIndex {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--cl-red);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+    align-self: start;
+}
+
+.passageBody {
+    min-width: 0;
+}
+
+.passageHead {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.passageMeta {
+    flex: 1;
+    min-width: 0;
+}
+
+.bookTitle {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.25rem;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.author {
+    color: var(--cl-yellow);
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+}
+
+.pageBadge {
+    background: var(--cl-red);
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.7rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.excerpt {
+    color: #DEDEDE;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    /* Treat the quote like a manuscript pull, not a card body. */
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-style: italic;
+}
+
+.openLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--cl-yellow);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    transition: color 0.15s, gap 0.15s;
+}
+
+.openLink:hover {
+    color: var(--cl-red);
+    gap: 0.85rem;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 700px) {
+    .panel {
+        padding: 1.75rem 1.25rem 1.25rem;
+    }
+
+    .greeting {
+        font-size: 1.15rem;
+    }
+
+    .passage {
+        grid-template-columns: 40px 1fr;
+        gap: 1rem;
+        padding: 1.25rem 0;
+    }
+
+    .passageIndex {
+        font-size: 1.75rem;
+    }
+
+    .passageHead {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .pageBadge {
+        align-self: flex-start;
+    }
+
+    .bookTitle {
+        font-size: 0.95rem;
+    }
+
+    .excerpt {
+        font-size: 0.9rem;
+    }
+
+    .headerLabel {
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+    }
+}

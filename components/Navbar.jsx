@@ -46,10 +46,6 @@ export default function Navbar() {
                 <div className={styles.links}>
                     <Link href="/" onClick={handleLinkClick}>Home</Link>
                     <Link href="/library" onClick={handleLinkClick}>The Library</Link>
-                    <a href="#manifesto" onClick={handleLinkClick}>My Manifesto</a>
-                    <a href="#struggle" onClick={handleLinkClick}>The Struggle</a>
-                    <a href="#sounds" onClick={handleLinkClick}>Sounds</a>
-                    <a href="#visions" onClick={handleLinkClick}>Visions</a>
                 </div>
 
                 <form onSubmit={handleSearch} className={styles.searchContainer}>

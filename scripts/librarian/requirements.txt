@@ -1,0 +1,11 @@
+PyMuPDF>=1.24
+requests>=2.31
+tqdm>=4.66
+
+# Query-time embedding service (lightweight, ONNX, no torch).
+fastembed>=0.4
+
+# Indexer (stage 2): uses Apple MPS via PyTorch for ~30x speedup on M-series Macs.
+# These are larger downloads (~2GB) but only needed for the indexer, not the runtime.
+torch>=2.2
+sentence-transformers>=2.7
