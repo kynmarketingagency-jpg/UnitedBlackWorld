@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
-
-// Simple password authentication
-// In production, use proper authentication with Supabase Auth
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'changeme';
+import { ADMIN_COOKIE, sessionToken, requestMeta } from '@/lib/adminAuth';
 
 export async function POST(request) {
+  const { ip, ua } = requestMeta(request);
   try {
     const { password } = await request.json();
 
@@ -15,17 +13,36 @@ export async function POST(request) {
       );
     }
 
-    if (password === ADMIN_PASSWORD) {
+    const configured = process.env.ADMIN_PASSWORD;
+    if (!configured || configured === 'changeme') {
+      console.error('[auth] ADMIN_PASSWORD is unset or still the default — refusing all logins');
       return NextResponse.json(
+        { message: 'Admin login is disabled until ADMIN_PASSWORD is configured' },
+        { status: 503 }
+      );
+    }
+
+    if (password === configured) {
+      console.log(`[auth] successful login ip=${ip}`);
+      const res = NextResponse.json(
         { message: 'Authentication successful' },
         { status: 200 }
       );
-    } else {
-      return NextResponse.json(
-        { message: 'Incorrect Captain\'s Code' },
-        { status: 401 }
-      );
+      res.cookies.set(ADMIN_COOKIE, await sessionToken(), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      });
+      return res;
     }
+
+    console.warn(`[auth] FAILED login attempt ip=${ip} ua="${ua}"`);
+    return NextResponse.json(
+      { message: 'Incorrect Captain\'s Code' },
+      { status: 401 }
+    );
   } catch (error) {
     console.error('Auth error:', error);
     return NextResponse.json(
@@ -33,4 +50,16 @@ export async function POST(request) {
       { status: 500 }
     );
   }
+}
+
+export async function DELETE() {
+  const res = NextResponse.json({ message: 'Logged out' });
+  res.cookies.set(ADMIN_COOKIE, '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0,
+  });
+  return res;
 }

@@ -2,10 +2,16 @@ import { NextResponse } from 'next/server';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { getR2Client, R2_BUCKET, publicUrlForKey } from '@/lib/r2';
+import { isAuthorized, requestMeta } from '@/lib/adminAuth';
 
 export const runtime = 'nodejs';
 
 export async function POST(request) {
+  const { ip, ua } = requestMeta(request);
+  if (!(await isAuthorized(request))) {
+    console.warn(`[upload-url] DENIED ip=${ip} ua="${ua}"`);
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const { fileName, contentType, folder } = await request.json();
 

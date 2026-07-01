@@ -57,8 +57,9 @@ export default function AdminDashboard() {
         }
     }
 
-    function handleLogout() {
+    async function handleLogout() {
         localStorage.removeItem('adminAuth');
+        await fetch('/api/auth', { method: 'DELETE' }).catch(() => {});
         router.push('/');
     }
 
