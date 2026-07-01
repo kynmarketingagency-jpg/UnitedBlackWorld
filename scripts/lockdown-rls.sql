@@ -68,6 +68,29 @@ create trigger resources_delete_audit
   before delete on public.resources
   for each row execute function public.log_resource_delete();
 
+-- 5. Librarian tables: server-only (the /api/librarian/search route
+--    uses the service-role key, which bypasses RLS). The anon key
+--    could read all of librarian_sessions — visitors' search
+--    queries — plus full book text in librarian_chunks. Nobody but
+--    the server needs these.
+do $$
+declare t text; p record;
+begin
+  foreach t in array array['librarian_books', 'librarian_chunks', 'librarian_sessions']
+  loop
+    execute format('alter table public.%I enable row level security', t);
+    for p in
+      select policyname from pg_policies
+      where schemaname = 'public' and tablename = t
+    loop
+      execute format('drop policy %I on public.%I', p.policyname, t);
+    end loop;
+    execute format(
+      'revoke all on table public.%I from anon, authenticated', t
+    );
+  end loop;
+end $$;
+
 commit;
 
 -- ─── Verify ─────────────────────────────────────────────────
