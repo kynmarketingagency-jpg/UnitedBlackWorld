@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 import { deleteFromR2 } from '@/lib/r2';
 import { isAuthorized, requestMeta } from '@/lib/adminAuth';
+import { logSecurityEvent } from '@/lib/securityLog';
 
 export const runtime = 'nodejs';
 
@@ -23,6 +24,7 @@ export async function POST(request) {
   const { ip, ua } = requestMeta(request);
   if (!(await isAuthorized(request))) {
     console.warn(`[resources] DENIED create ip=${ip} ua="${ua}"`);
+    await logSecurityEvent('resource_create_denied', request);
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -62,6 +64,7 @@ export async function DELETE(request) {
 
   if (!(await isAuthorized(request))) {
     console.warn(`[resources] DENIED delete ip=${ip} ua="${ua}" body=${JSON.stringify(body)}`);
+    await logSecurityEvent('resource_delete_denied', request, `body=${JSON.stringify(body)}`);
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { deleteFromR2 } from '@/lib/r2';
 import { isAuthorized, requestMeta } from '@/lib/adminAuth';
+import { logSecurityEvent } from '@/lib/securityLog';
 
 export const runtime = 'nodejs';
 
@@ -15,6 +16,7 @@ export async function POST(request) {
 
   if (!(await isAuthorized(request))) {
     console.warn(`[delete-files] DENIED ip=${ip} ua="${ua}" keys=${JSON.stringify(keys)}`);
+    await logSecurityEvent('delete_files_denied', request, `keys=${JSON.stringify(keys)}`);
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

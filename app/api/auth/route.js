@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ADMIN_COOKIE, sessionToken, requestMeta } from '@/lib/adminAuth';
+import { logSecurityEvent } from '@/lib/securityLog';
 
 export async function POST(request) {
   const { ip, ua } = requestMeta(request);
@@ -39,6 +40,7 @@ export async function POST(request) {
     }
 
     console.warn(`[auth] FAILED login attempt ip=${ip} ua="${ua}"`);
+    await logSecurityEvent('login_failed', request);
     return NextResponse.json(
       { message: 'Incorrect Captain\'s Code' },
       { status: 401 }

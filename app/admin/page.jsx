@@ -205,6 +205,9 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className={styles.headerActions}>
+                    <a href="/admin/security" className={styles.backLink}>
+                        🛡️ Security
+                    </a>
                     <a href="/" className={styles.backLink}>
                         Return to Ship
                     </a>
