@@ -24,14 +24,18 @@ export async function GET(request) {
         .limit(200),
     ]);
 
+    // A table that doesn't exist yet surfaces as Postgres 42P01 or, via
+    // PostgREST's schema cache, PGRST205 / a "Could not find the table" message.
+    const missingTable = (err) =>
+      !!err &&
+      (err.code === '42P01' ||
+        err.code === 'PGRST205' ||
+        /Could not find the table/i.test(err.message || ''));
+
     return NextResponse.json({
       events: events.data || [],
       deletions: deletions.data || [],
-      // Surface a friendly hint if the tables aren't created yet.
-      setupNeeded:
-        (events.error && events.error.code === '42P01') ||
-        (deletions.error && deletions.error.code === '42P01') ||
-        false,
+      setupNeeded: missingTable(events.error) || missingTable(deletions.error),
       errors: {
         events: events.error?.message || null,
         deletions: deletions.error?.message || null,
